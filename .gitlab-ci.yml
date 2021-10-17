@@ -1,0 +1,78 @@
+image: tiangolo/docker-with-compose
+
+before_script:
+  - docker login -u $USR_HUB -p $PSS_HUB $CI_REGISTRY
+  - echo "$DOTENV" > .env
+  - pip install docker-auto-labels
+
+stages:
+  - test
+  - build
+  - deploy
+
+tests:
+  stage: test
+  script:
+    # - sh ./scripts/test.sh
+    - echo "=O"
+  tags:
+    - build
+    - test
+
+build-prod:
+  stage: build
+  script:
+    - TAG=prod FRONTEND_ENV=production sh ./scripts/build-push.sh
+  only:
+    - main
+  tags:
+    - build
+    - test
+
+
+deploy-prod:
+  stage: deploy
+  script:
+    - >
+      DOMAIN=mobapp.klh.criptofesta.org
+      TRAEFIK_TAG=mobapp.klh.criptofesta.org
+      STACK_NAME=mobapp
+      TAG=prod
+      sh ./scripts/deploy.sh
+  environment:
+    name: production
+    url: https://mobapp.klh.criptofesta.org
+  only:
+    - main
+  tags:
+    - swarm
+    - prod
+
+#build-stag:
+#  stage: build
+#  script:
+#    - TAG=stag FRONTEND_ENV=staging sh ./scripts/build-push.sh
+#  only:
+#    - master
+#  tags:
+#    - build
+#    - test
+    
+
+#deploy-stag:
+#  stage: deploy
+#  script:
+#    - >
+#      DOMAIN=stag.mobapp.klh.criptofesta.org
+#      TRAEFIK_TAG=stag.mobapp.klh.criptofesta.org
+#      STACK_NAME=stag-mobapp
+#      TAG=stag
+#      sh ./scripts/deploy.sh
+#  environment:
+#    name: staging
+#    url: https://stag.mobapp.klh.criptofesta.org
+#  only:
+#    - master
+#  tags:
+#    - swarm
+#    - stag

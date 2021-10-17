@@ -1,0 +1,289 @@
+networks:
+  traefik-public:
+    external: true
+    name: traefik-public
+services:
+  backend:
+    build:
+      args:
+        INSTALL_DEV: "true"
+      context: /home/saci/hd/projetos/mobapp/backend
+      dockerfile: backend.dockerfile
+    deploy:
+      labels:
+      - traefik.enable=true
+      - traefik.constraint-label-stack=mobapp.klh.criptofesta.org
+      - traefik.http.routers.mobapp-backend-http.rule=PathPrefix(`/api`) || PathPrefix(`/docs`)
+        || PathPrefix(`/redoc`)
+      - traefik.http.services.mobapp-backend.loadbalancer.server.port=80
+    environment:
+      BACKEND_CORS_ORIGINS: '["http://localhost", "http://localhost:4200", "http://localhost:3000",
+        "http://localhost:8080", "https://localhost", "https://localhost:4200", "https://localhost:3000",
+        "https://localhost:8080", "http://dev.mobapp.klh.criptofesta.org", "https://stag.mobapp.klh.criptofesta.org",
+        "https://mobapp.klh.criptofesta.org", "http://local.dockertoolbox.tiangolo.com",
+        "http://localhost.tiangolo.com"]'
+      DOCKER_IMAGE_BACKEND: backend
+      DOCKER_IMAGE_CELERYWORKER: celeryworker
+      DOCKER_IMAGE_FRONTEND: frontend
+      DOMAIN: localhost
+      EMAILS_FROM_EMAIL: info@mobapp.klh.criptofesta.org
+      FIRST_SUPERUSER: admin@mobapp.klh.criptofesta.org
+      FIRST_SUPERUSER_PASSWORD: monografia
+      FLOWER_BASIC_AUTH: admin:monografia
+      PGADMIN_DEFAULT_EMAIL: admin@mobapp.klh.criptofesta.org
+      PGADMIN_DEFAULT_PASSWORD: monografia
+      PGADMIN_LISTEN_PORT: '5050'
+      POSTGRES_DB: app
+      POSTGRES_PASSWORD: monografia
+      POSTGRES_SERVER: db
+      POSTGRES_USER: postgres
+      PROJECT_NAME: mobapp
+      SECRET_KEY: monografia
+      SENTRY_DSN: ''
+      SERVER_HOST: https://backend
+      SERVER_NAME: backend
+      SMTP_HOST: ''
+      SMTP_PASSWORD: ''
+      SMTP_PORT: '587'
+      SMTP_TLS: "True"
+      SMTP_USER: ''
+      STACK_NAME: mobapp
+      TRAEFIK_PUBLIC_NETWORK: traefik-public
+      TRAEFIK_PUBLIC_TAG: traefik-public
+      TRAEFIK_TAG: mobapp.klh.criptofesta.org
+      USERS_OPEN_REGISTRATION: "False"
+    image: backend:latest
+  celeryworker:
+    build:
+      args:
+        INSTALL_DEV: "true"
+      context: /home/saci/hd/projetos/mobapp/backend
+      dockerfile: celeryworker.dockerfile
+    environment:
+      BACKEND_CORS_ORIGINS: '["http://localhost", "http://localhost:4200", "http://localhost:3000",
+        "http://localhost:8080", "https://localhost", "https://localhost:4200", "https://localhost:3000",
+        "https://localhost:8080", "http://dev.mobapp.klh.criptofesta.org", "https://stag.mobapp.klh.criptofesta.org",
+        "https://mobapp.klh.criptofesta.org", "http://local.dockertoolbox.tiangolo.com",
+        "http://localhost.tiangolo.com"]'
+      DOCKER_IMAGE_BACKEND: backend
+      DOCKER_IMAGE_CELERYWORKER: celeryworker
+      DOCKER_IMAGE_FRONTEND: frontend
+      DOMAIN: localhost
+      EMAILS_FROM_EMAIL: info@mobapp.klh.criptofesta.org
+      FIRST_SUPERUSER: admin@mobapp.klh.criptofesta.org
+      FIRST_SUPERUSER_PASSWORD: monografia
+      FLOWER_BASIC_AUTH: admin:monografia
+      PGADMIN_DEFAULT_EMAIL: admin@mobapp.klh.criptofesta.org
+      PGADMIN_DEFAULT_PASSWORD: monografia
+      PGADMIN_LISTEN_PORT: '5050'
+      POSTGRES_DB: app
+      POSTGRES_PASSWORD: monografia
+      POSTGRES_SERVER: db
+      POSTGRES_USER: postgres
+      PROJECT_NAME: mobapp
+      SECRET_KEY: monografia
+      SENTRY_DSN: ''
+      SERVER_HOST: https://backend
+      SERVER_NAME: backend
+      SMTP_HOST: ''
+      SMTP_PASSWORD: ''
+      SMTP_PORT: '587'
+      SMTP_TLS: "True"
+      SMTP_USER: ''
+      STACK_NAME: mobapp
+      TRAEFIK_PUBLIC_NETWORK: traefik-public
+      TRAEFIK_PUBLIC_TAG: traefik-public
+      TRAEFIK_TAG: mobapp.klh.criptofesta.org
+      USERS_OPEN_REGISTRATION: "False"
+    image: celeryworker:latest
+  db:
+    deploy:
+      placement:
+        constraints:
+        - node.labels.mobapp.app-db-data == true
+    environment:
+      BACKEND_CORS_ORIGINS: '["http://localhost", "http://localhost:4200", "http://localhost:3000",
+        "http://localhost:8080", "https://localhost", "https://localhost:4200", "https://localhost:3000",
+        "https://localhost:8080", "http://dev.mobapp.klh.criptofesta.org", "https://stag.mobapp.klh.criptofesta.org",
+        "https://mobapp.klh.criptofesta.org", "http://local.dockertoolbox.tiangolo.com",
+        "http://localhost.tiangolo.com"]'
+      DOCKER_IMAGE_BACKEND: backend
+      DOCKER_IMAGE_CELERYWORKER: celeryworker
+      DOCKER_IMAGE_FRONTEND: frontend
+      DOMAIN: localhost
+      EMAILS_FROM_EMAIL: info@mobapp.klh.criptofesta.org
+      FIRST_SUPERUSER: admin@mobapp.klh.criptofesta.org
+      FIRST_SUPERUSER_PASSWORD: monografia
+      FLOWER_BASIC_AUTH: admin:monografia
+      PGADMIN_DEFAULT_EMAIL: admin@mobapp.klh.criptofesta.org
+      PGADMIN_DEFAULT_PASSWORD: monografia
+      PGADMIN_LISTEN_PORT: '5050'
+      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_DB: app
+      POSTGRES_PASSWORD: monografia
+      POSTGRES_SERVER: db
+      POSTGRES_USER: postgres
+      PROJECT_NAME: mobapp
+      SECRET_KEY: monografia
+      SENTRY_DSN: ''
+      SMTP_HOST: ''
+      SMTP_PASSWORD: ''
+      SMTP_PORT: '587'
+      SMTP_TLS: "True"
+      SMTP_USER: ''
+      STACK_NAME: mobapp
+      TRAEFIK_PUBLIC_NETWORK: traefik-public
+      TRAEFIK_PUBLIC_TAG: traefik-public
+      TRAEFIK_TAG: mobapp.klh.criptofesta.org
+      USERS_OPEN_REGISTRATION: "False"
+    image: postgres:12
+    volumes:
+    - app-db-data:/var/lib/postgresql/data/pgdata:rw
+  flower:
+    command:
+    - --broker=amqp://guest@queue:5672//
+    deploy:
+      labels:
+      - traefik.enable=true
+      - traefik.docker.network=traefik-public
+      - traefik.constraint-label=traefik-public
+      - traefik.http.routers.mobapp-flower-http.rule=Host(`flower.backend`)
+      - traefik.http.routers.mobapp-flower-http.entrypoints=http
+      - traefik.http.routers.mobapp-flower-http.middlewares=mobapp-https-redirect
+      - traefik.http.routers.mobapp-flower-https.rule=Host(`flower.backend`)
+      - traefik.http.routers.mobapp-flower-https.entrypoints=https
+      - traefik.http.routers.mobapp-flower-https.tls=true
+      - traefik.http.routers.mobapp-flower-https.tls.certresolver=le
+      - traefik.http.services.mobapp-flower.loadbalancer.server.port=5555
+    environment:
+      BACKEND_CORS_ORIGINS: '["http://localhost", "http://localhost:4200", "http://localhost:3000",
+        "http://localhost:8080", "https://localhost", "https://localhost:4200", "https://localhost:3000",
+        "https://localhost:8080", "http://dev.mobapp.klh.criptofesta.org", "https://stag.mobapp.klh.criptofesta.org",
+        "https://mobapp.klh.criptofesta.org", "http://local.dockertoolbox.tiangolo.com",
+        "http://localhost.tiangolo.com"]'
+      DOCKER_IMAGE_BACKEND: backend
+      DOCKER_IMAGE_CELERYWORKER: celeryworker
+      DOCKER_IMAGE_FRONTEND: frontend
+      DOMAIN: localhost
+      EMAILS_FROM_EMAIL: info@mobapp.klh.criptofesta.org
+      FIRST_SUPERUSER: admin@mobapp.klh.criptofesta.org
+      FIRST_SUPERUSER_PASSWORD: monografia
+      FLOWER_BASIC_AUTH: admin:monografia
+      PGADMIN_DEFAULT_EMAIL: admin@mobapp.klh.criptofesta.org
+      PGADMIN_DEFAULT_PASSWORD: monografia
+      PGADMIN_LISTEN_PORT: '5050'
+      POSTGRES_DB: app
+      POSTGRES_PASSWORD: monografia
+      POSTGRES_SERVER: db
+      POSTGRES_USER: postgres
+      PROJECT_NAME: mobapp
+      SECRET_KEY: monografia
+      SENTRY_DSN: ''
+      SMTP_HOST: ''
+      SMTP_PASSWORD: ''
+      SMTP_PORT: '587'
+      SMTP_TLS: "True"
+      SMTP_USER: ''
+      STACK_NAME: mobapp
+      TRAEFIK_PUBLIC_NETWORK: traefik-public
+      TRAEFIK_PUBLIC_TAG: traefik-public
+      TRAEFIK_TAG: mobapp.klh.criptofesta.org
+      USERS_OPEN_REGISTRATION: "False"
+    image: mher/flower:0.9.4
+    networks:
+      default: null
+      traefik-public: null
+  pgadmin:
+    deploy:
+      labels:
+      - traefik.enable=true
+      - traefik.docker.network=traefik-public
+      - traefik.constraint-label=traefik-public
+      - traefik.http.routers.mobapp-pgadmin-http.rule=Host(`pgadmin.backend`)
+      - traefik.http.routers.mobapp-pgadmin-http.entrypoints=http
+      - traefik.http.routers.mobapp-pgadmin-http.middlewares=mobapp-https-redirect
+      - traefik.http.routers.mobapp-pgadmin-https.rule=Host(`pgadmin.backend`)
+      - traefik.http.routers.mobapp-pgadmin-https.entrypoints=https
+      - traefik.http.routers.mobapp-pgadmin-https.tls=true
+      - traefik.http.routers.mobapp-pgadmin-https.tls.certresolver=le
+      - traefik.http.services.mobapp-pgadmin.loadbalancer.server.port=5050
+    environment:
+      BACKEND_CORS_ORIGINS: '["http://localhost", "http://localhost:4200", "http://localhost:3000",
+        "http://localhost:8080", "https://localhost", "https://localhost:4200", "https://localhost:3000",
+        "https://localhost:8080", "http://dev.mobapp.klh.criptofesta.org", "https://stag.mobapp.klh.criptofesta.org",
+        "https://mobapp.klh.criptofesta.org", "http://local.dockertoolbox.tiangolo.com",
+        "http://localhost.tiangolo.com"]'
+      DOCKER_IMAGE_BACKEND: backend
+      DOCKER_IMAGE_CELERYWORKER: celeryworker
+      DOCKER_IMAGE_FRONTEND: frontend
+      DOMAIN: localhost
+      EMAILS_FROM_EMAIL: info@mobapp.klh.criptofesta.org
+      FIRST_SUPERUSER: admin@mobapp.klh.criptofesta.org
+      FIRST_SUPERUSER_PASSWORD: monografia
+      FLOWER_BASIC_AUTH: admin:monografia
+      PGADMIN_DEFAULT_EMAIL: admin@mobapp.klh.criptofesta.org
+      PGADMIN_DEFAULT_PASSWORD: monografia
+      PGADMIN_LISTEN_PORT: '5050'
+      POSTGRES_DB: app
+      POSTGRES_PASSWORD: monografia
+      POSTGRES_SERVER: db
+      POSTGRES_USER: postgres
+      PROJECT_NAME: mobapp
+      SECRET_KEY: monografia
+      SENTRY_DSN: ''
+      SMTP_HOST: ''
+      SMTP_PASSWORD: ''
+      SMTP_PORT: '587'
+      SMTP_TLS: "True"
+      SMTP_USER: ''
+      STACK_NAME: mobapp
+      TRAEFIK_PUBLIC_NETWORK: traefik-public
+      TRAEFIK_PUBLIC_TAG: traefik-public
+      TRAEFIK_TAG: mobapp.klh.criptofesta.org
+      USERS_OPEN_REGISTRATION: "False"
+    image: dpage/pgadmin4
+    networks:
+      default: null
+      traefik-public: null
+  proxy:
+    command:
+    - --providers.docker
+    - --providers.docker.constraints=Label(`traefik.constraint-label-stack`, `mobapp.klh.criptofesta.org`)
+    - --providers.docker.exposedbydefault=false
+    - --providers.docker.swarmmode
+    - --accesslog
+    - --log
+    - --api
+    deploy:
+      labels:
+      - traefik.enable=true
+      - traefik.docker.network=traefik-public
+      - traefik.constraint-label=traefik-public
+      - traefik.http.middlewares.mobapp-https-redirect.redirectscheme.scheme=https
+      - traefik.http.middlewares.mobapp-https-redirect.redirectscheme.permanent=true
+      - traefik.http.routers.mobapp-proxy-http.rule=Host(`backend`) || Host(`www.backend`)
+      - traefik.http.routers.mobapp-proxy-http.entrypoints=http
+      - traefik.http.routers.mobapp-proxy-https.rule=Host(`backend`) || Host(`www.backend`)
+      - traefik.http.routers.mobapp-proxy-https.entrypoints=https
+      - traefik.http.routers.mobapp-proxy-https.tls=true
+      - traefik.http.routers.mobapp-proxy-https.tls.certresolver=le
+      - traefik.http.services.mobapp-proxy.loadbalancer.server.port=80
+      - traefik.http.middlewares.mobapp-www-redirect.redirectregex.regex=^https?://(www.)?(backend)/(.*)
+      - traefik.http.middlewares.mobapp-www-redirect.redirectregex.replacement=https://backend/$${3}
+      - traefik.http.routers.mobapp-proxy-https.middlewares=mobapp-www-redirect
+      - traefik.http.routers.mobapp-proxy-http.middlewares=mobapp-www-redirect,mobapp-https-redirect
+      placement:
+        constraints:
+        - node.role == manager
+    image: traefik:v2.2
+    networks:
+      default: null
+      traefik-public: null
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock:rw
+  queue:
+    image: rabbitmq:3
+version: '3.6'
+volumes:
+  app-db-data: {}
+

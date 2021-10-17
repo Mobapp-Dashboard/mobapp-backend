@@ -13,8 +13,8 @@ stages:
 tests:
   stage: test
   script:
-    # - sh ./scripts/test.sh
-    - echo "=O"
+    - sh ./scripts/test.sh
+    #- echo "=O"
   tags:
     - build
     - test
@@ -47,32 +47,3 @@ deploy-prod:
   tags:
     - swarm
     - prod
-
-#build-stag:
-#  stage: build
-#  script:
-#    - TAG=stag FRONTEND_ENV=staging sh ./scripts/build-push.sh
-#  only:
-#    - master
-#  tags:
-#    - build
-#    - test
-    
-
-#deploy-stag:
-#  stage: deploy
-#  script:
-#    - >
-#      DOMAIN=stag.mobapp.klh.criptofesta.org
-#      TRAEFIK_TAG=stag.mobapp.klh.criptofesta.org
-#      STACK_NAME=stag-mobapp
-#      TAG=stag
-#      sh ./scripts/deploy.sh
-#  environment:
-#    name: staging
-#    url: https://stag.mobapp.klh.criptofesta.org
-#  only:
-#    - master
-#  tags:
-#    - swarm
-#    - stag

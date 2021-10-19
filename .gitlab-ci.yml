@@ -15,9 +15,7 @@ tests:
   script:
     - sh ./scripts/test.sh
     #- echo "=O"
-  tags:
-    - build
-    - test
+
 
 build-prod:
   stage: build

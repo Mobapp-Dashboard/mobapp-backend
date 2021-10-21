@@ -10,6 +10,23 @@ from app.api import deps
 router = APIRouter()
 
 
+@router.get("trajs_by_turno", response_model=List[schemas.DublinTrajs])
+def read_trajs_by_turno(*, db: Session = Depends(deps.get_db), turno: str):
+    """GET para as trajetórias de Dublin a partir do turno.
+
+    MANHA: 05 ~ 12
+    TARDE: 12 ~ 18
+    NOITE: 18 ~ 00
+    MADRUGADA: 00 ~ 06
+    """
+    trajs = crud.dublin_meta.get_traj_by_turno(db=db, turno=turno)
+
+    if not trajs:
+        raise HTTPException(status_code=404, detail="DublinMeta not found")
+
+    return trajs
+
+
 @router.get("/journeys_by_date/", response_model=List[schemas.DublinJourneys])
 def read_journeys_by_date(
     *,

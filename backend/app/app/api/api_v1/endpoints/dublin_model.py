@@ -40,3 +40,14 @@ def read_dublin_meta_by_line(
         raise HTTPException(status_code=404, detail="DublinMeta not found")
 
     return dm
+
+
+@router.get("/evals/{method}/{rota}", response_model=List[schemas.DublinEvalModels])
+def read_evals_by_method(
+    *, db: Session = Depends(deps.get_db), method: str, rota: int
+) -> Any:
+    "Get pre-computed evals by models"
+    evals = crud.dublin_eval_models.get_by_method_rota(db=db, method=method, rota=rota)
+    if not evals:
+        raise HTTPException(status_code=404, detail="Evals not found")
+    return evals

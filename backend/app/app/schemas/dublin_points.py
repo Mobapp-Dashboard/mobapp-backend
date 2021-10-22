@@ -27,6 +27,7 @@ class DublinPointsBase(BaseModel):
     hour: Optional[int]
     minute: Optional[int]
     stop_labels: Optional[bool]
+    day_moment: Optional[str]
 
 
 # Properties to receive on item creation

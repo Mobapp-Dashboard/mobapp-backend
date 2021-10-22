@@ -2,17 +2,13 @@
 
 from typing import TYPE_CHECKING
 
-from sqlalchemy import Column, ForeignKey, Integer, String, Boolean, DateTime, Numeric
-from sqlalchemy.orm import relationship
+from sqlalchemy import Column, DateTime, Integer, Numeric, String
 
 from app.db.base_class import Base
 
-if TYPE_CHECKING:
-    from .dublin_meta import DublinMeta
-
 class DublinPoints(Base):
     id = Column(Integer, primary_key=True, index=True)
-    #trajectory_id = Column(Integer, ForeignKey("dublinmeta.trajectory_id"))
+    # trajectory_id = Column(Integer, ForeignKey("dublinmeta.trajectory_id"))
     trajectory_id = Column(Integer)
     instant = Column(DateTime)
     lat = Column(Numeric)
@@ -31,3 +27,4 @@ class DublinPoints(Base):
     hour = Column(Integer)
     minute = Column(Integer)
     stop_labels = Column(Integer)
+    day_moment = Column(String)

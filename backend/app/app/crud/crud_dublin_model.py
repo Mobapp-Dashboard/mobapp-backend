@@ -12,17 +12,13 @@ from app.schemas.dublin_model import DublinModelCreate, DublinModelUpdate
 
 class CRUDDublinModel(CRUDBase[DublinModel, DublinModelCreate, DublinModelUpdate]):
     def get_predictions(
-            self, db: Session, *, trajectory_id: int = None, routes: int = None
+        self, db: Session, *, trajectory_id: int = None, routes: int = None
     ) -> List[DublinModel]:
-        return (
-            db.query(self.model)
-            .filter(
-                (DublinModel.trajectory_id == trajectory_id)
-                & (DublinModel.routes == routes))
-#            .offset(0)
-#            .limit(100)
-            .all()
-        )
+        query = db.query(self.model)
+        if trajectory_id is not None:
+            query = query.filter(DublinModel.trajectory_id == trajectory_id)
+        query = query.filter(DublinModel.routes == routes)
+        return query.all()
 
 
 dublin_model = CRUDDublinModel(DublinModel)

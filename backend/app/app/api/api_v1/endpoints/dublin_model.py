@@ -15,7 +15,7 @@ router = APIRouter()
 def read_dublin_meta_by_line(
     *,
     db: Session = Depends(deps.get_db),
-    trajectory_id: Optional[int],
+    trajectory_id: Optional[int] = None,
     routes: Optional[int]
 ) -> Any:
     """
@@ -23,10 +23,12 @@ def read_dublin_meta_by_line(
     """
     # TODO: Ver uma forma de todas as colunas poderem ser parte da query
     # sem fazer todas as queries
-    if (trajectory_id < 0) | (trajectory_id >= 100):
-        raise HTTPException(
-            status_code=406, detail="A trajetória deve estar compreendida entre 0 e 100"
-        )
+    if trajectory_id is not None:
+        if (trajectory_id < 0) | (trajectory_id >= 100):
+            raise HTTPException(
+                status_code=406,
+                detail="A trajetória deve estar compreendida entre 0 e 100",
+            )
     if (routes < 0) | (routes > 63):
         raise HTTPException(
             status_code=406, detail="A rota deve estar compreendida entre 0 e 63"

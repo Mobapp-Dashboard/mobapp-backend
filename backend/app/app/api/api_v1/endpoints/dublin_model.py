@@ -53,3 +53,18 @@ def read_evals_by_method(
     if not evals:
         raise HTTPException(status_code=404, detail="Evals not found")
     return evals
+
+
+@router.get(
+    "/predictions/{method}/{rota}", response_model=List[schemas.DublinPredictionRegion]
+)
+def read_evals_by_method(
+    *, db: Session = Depends(deps.get_db), method: str, rota: int
+) -> Any:
+    "Get pre-computed evals by models"
+    preds = crud.dublin_prediction_region.get_by_method_rota(
+        db=db, method=method, rota=rota
+    )
+    if not preds:
+        raise HTTPException(status_code=404, detail="Evals not found")
+    return preds

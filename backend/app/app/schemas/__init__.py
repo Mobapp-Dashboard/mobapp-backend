@@ -20,5 +20,11 @@ from .dublin_points import (
     DublinPointsInDB,
     DublinPointsUpdate,
 )
+from .dublin_prediction_region import (
+    DublinPredictionRegion,
+    DublinPredictionRegionCreate,
+    DublinPredictionRegionInDB,
+    DublinPredictionRegionUpdate,
+)
 from .msg import Msg
 from .token import Token, TokenPayload

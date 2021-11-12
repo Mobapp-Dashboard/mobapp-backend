@@ -14,6 +14,12 @@ from .dublin_model import (
     DublinModelInDB,
     DublinModelUpdate,
 )
+from .dublin_model_points import (
+    DublinModelPoints,
+    DublinModelPointsCreate,
+    DublinModelPointsInDB,
+    DublinModelPointsUpdate,
+)
 from .dublin_points import (
     DublinPoints,
     DublinPointsCreate,

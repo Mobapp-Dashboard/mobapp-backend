@@ -7,37 +7,35 @@ from pydantic import BaseModel
 
 
 # Shared properties
-class DublinModelBase(BaseModel):
+class DublinModelPointsBase(BaseModel):
     index: Optional[int]
     trajectory_id: Optional[int]
-    predicted: Optional[int]
-    input_token: Optional[int]
-    routes: Optional[int]
+    rota: Optional[int]
     lat: Optional[float]
     lng: Optional[float]
 
 
 # Properties to receive on item creation
-class DublinModelCreate(DublinModelBase):
+class DublinModelPointsCreate(DublinModelPointsBase):
     pass
 
 
 # Properties to receive on item update
-class DublinModelUpdate(DublinModelBase):
+class DublinModelPointsUpdate(DublinModelPointsBase):
     pass
 
 
 # Properties shared by models stored in DB
-class DublinModelInDBBase(DublinModelBase):
+class DublinModelPointsInDBBase(DublinModelPointsBase):
     class Config:
         orm_mode = True
 
 
 # Properties to return to client
-class DublinModel(DublinModelInDBBase):
+class DublinModelPoints(DublinModelPointsInDBBase):
     pass
 
 
 # Properties properties stored in DB
-class DublinModelInDB(DublinModelInDBBase):
+class DublinModelPointsInDB(DublinModelPointsInDBBase):
     pass

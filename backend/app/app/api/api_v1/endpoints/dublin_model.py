@@ -11,12 +11,12 @@ from app.api import deps
 router = APIRouter()
 
 
-@router.get("/meta_trajectory/", response_model=List[schemas.DublinModel])
+@router.get("/model_points/", response_model=List[schemas.DublinModelPoints])
 def read_dublin_meta_by_line(
     *,
     db: Session = Depends(deps.get_db),
     trajectory_id: Optional[int] = None,
-    routes: Optional[int]
+    rota: Optional[int]
 ) -> Any:
     """
     Get dublin_meta by line_id.
@@ -29,19 +29,19 @@ def read_dublin_meta_by_line(
                 status_code=406,
                 detail="A trajetória deve estar compreendida entre 0 e 100",
             )
-    if (routes < 0) | (routes > 63):
+    if (rota < 0) | (rota > 63):
         raise HTTPException(
             status_code=406, detail="A rota deve estar compreendida entre 0 e 63"
         )
 
-    dm = crud.dublin_model.get_predictions(
-        db=db, trajectory_id=trajectory_id, routes=routes
+    dp = crud.dublin_model_points.get_points_by_rota_traj(
+        db=db, trajectory_id=trajectory_id, rota=rota
     )
 
-    if not dm:
+    if not dp:
         raise HTTPException(status_code=404, detail="DublinMeta not found")
 
-    return dm
+    return dp
 
 
 @router.get("/evals/{method}/{rota}", response_model=List[schemas.DublinEvalModels])

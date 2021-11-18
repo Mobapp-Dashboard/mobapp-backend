@@ -7,39 +7,36 @@ from pydantic import BaseModel
 
 
 # Shared properties
-class DublinEvalModelsBase(BaseModel):
+class DublinModelEvalBase(BaseModel):
     index: Optional[int]
-    filename: Optional[str]
-    rota: Optional[int]
-    auc: Optional[float]
-    max_f1: Optional[float]
-    f1_thr: Optional[float]
+    model: Optional[str]
+    route: Optional[int]
     precision: Optional[float]
     recall: Optional[float]
     threshold: Optional[float]
 
 
 # Properties to receive on item creation
-class DublinEvalModelsCreate(DublinEvalModelsBase):
+class DublinModelEvalCreate(DublinModelEvalBase):
     pass
 
 
 # Properties to receive on item update
-class DublinEvalModelsUpdate(DublinEvalModelsBase):
+class DublinModelEvalUpdate(DublinModelEvalBase):
     pass
 
 
 # Properties shared by models stored in DB
-class DublinEvalModelsInDBBase(DublinEvalModelsBase):
+class DublinModelEvalInDBBase(DublinModelEvalBase):
     class Config:
         orm_mode = True
 
 
 # Properties to return to client
-class DublinEvalModels(DublinEvalModelsInDBBase):
+class DublinModelEval(DublinModelEvalInDBBase):
     pass
 
 
 # Properties properties stored in DB
-class DublinEvalModelsInDB(DublinEvalModelsInDBBase):
+class DublinModelEvalInDB(DublinModelEvalInDBBase):
     pass

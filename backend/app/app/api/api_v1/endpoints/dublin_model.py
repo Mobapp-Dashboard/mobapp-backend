@@ -44,26 +44,27 @@ def read_dublin_meta_by_line(
     return dp
 
 
-@router.get("/evals/{method}/{rota}", response_model=List[schemas.DublinEvalModels])
+@router.get("/evals/{method}/{rota}", response_model=List[schemas.DublinModelEval])
 def read_evals_by_method(
     *, db: Session = Depends(deps.get_db), method: str, rota: int
 ) -> Any:
     "Get pre-computed evals by models"
-    evals = crud.dublin_eval_models.get_by_method_rota(db=db, method=method, rota=rota)
+    evals = crud.dublin_model_eval.get_by_method_rota(db=db, method=method, rota=rota)
     if not evals:
         raise HTTPException(status_code=404, detail="Evals not found")
     return evals
 
 
 @router.get(
-    "/predictions/{method}/{rota}", response_model=List[schemas.DublinPredictionRegion]
+    "/predictions/{method}/{route}",
+    response_model=List[schemas.DublinModelDetectionRegion],
 )
 def read_evals_by_method(
-    *, db: Session = Depends(deps.get_db), method: str, rota: int
+    *, db: Session = Depends(deps.get_db), method: str, route: int
 ) -> Any:
     "Get pre-computed evals by models"
-    preds = crud.dublin_prediction_region.get_by_method_rota(
-        db=db, method=method, rota=rota
+    preds = crud.dublin_model_detection_region.get_by_method_route(
+        db=db, method=method, route=route
     )
     if not preds:
         raise HTTPException(status_code=404, detail="Evals not found")

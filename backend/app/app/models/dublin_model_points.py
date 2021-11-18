@@ -10,6 +10,6 @@ from app.db.base_class import Base
 class DublinModelPoints(Base):
     index = Column(Integer, primary_key=True)
     trajectory_id = Column(Integer)
-    rota = Column(Integer)
+    route = Column(Integer)
     lat = Column(Numeric)
     lng = Column(Numeric)

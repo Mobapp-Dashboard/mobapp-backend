@@ -4,10 +4,10 @@ from sqlalchemy import Column, Integer, String
 from app.db.base_class import Base
 
 
-class DublinPredictionRegion(Base):
+class DublinModelDetectionRegion(Base):
     index = Column(Integer, primary_key=True)
-    filename = Column(String)
-    rota = Column(Integer)
+    model = Column(String)
+    route = Column(Integer)
     trajectory_id = Column(Integer)
-    anon_predictions = Column(String)
-    true_anon = Column(String)
+    anom_predictions = Column(String)
+    anom_true = Column(String)

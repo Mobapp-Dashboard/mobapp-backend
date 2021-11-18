@@ -5,13 +5,10 @@ from sqlalchemy import Boolean, Column, DateTime, ForeignKey, Integer, Numeric, 
 from app.db.base_class import Base
 
 
-class DublinEvalModels(Base):
+class DublinModelEval(Base):
     index = Column(Integer, primary_key=True)
-    filename = Column(String)
-    rota = Column(Integer)
-    auc = Column(Numeric)
-    max_f1 = Column(Numeric)
-    f1_thr = Column(Numeric)
+    model = Column(String)
+    route = Column(Integer)
     precision = Column(Numeric)
     recall = Column(Numeric)
     threshold = Column(Numeric)

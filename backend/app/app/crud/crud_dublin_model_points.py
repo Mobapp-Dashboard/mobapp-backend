@@ -22,7 +22,7 @@ class CRUDDublinModelPoints(
         query = db.query(self.model)
         if trajectory_id is not None:
             query = query.filter(DublinModelPoints.trajectory_id == trajectory_id)
-        query = query.filter(DublinModelPoints.rota == rota)
+        query = query.filter(DublinModelPoints.route == rota)
         return query.all()
 
 

@@ -6,29 +6,31 @@ from sqlalchemy.orm import Session
 from sqlalchemy.sql import extract
 
 from app.crud.base import CRUDBase
-from app.models.dublin_prediction_region import DublinPredictionRegion
-from app.schemas.dublin_prediction_region import (
-    DublinPredictionRegionCreate,
-    DublinPredictionRegionUpdate,
+from app.models.dublin_model_detection_region import DublinModelDetectionRegion
+from app.schemas.dublin_model_detection_region import (
+    DublinModelDetectionRegionCreate,
+    DublinModelDetectionRegionUpdate,
 )
 
 
-class CRUDDublinPredictionRegion(
+class CRUDDublinModelDetectionRegion(
     CRUDBase[
-        DublinPredictionRegion,
-        DublinPredictionRegionCreate,
-        DublinPredictionRegionUpdate,
+        DublinModelDetectionRegion,
+        DublinModelDetectionRegionCreate,
+        DublinModelDetectionRegionUpdate,
     ]
 ):
-    def get_by_method_rota(
-        self, db: Session, *, method: str, rota: int
-    ) -> List[DublinPredictionRegion]:
+    def get_by_method_route(
+        self, db: Session, *, method: str, route: int
+    ) -> List[DublinModelDetectionRegion]:
         query = (
-            db.query(DublinPredictionRegion)
-            .filter(DublinPredictionRegion.filename == method)
-            .filter(DublinPredictionRegion.rota == rota)
+            db.query(DublinModelDetectionRegion)
+            .filter(DublinModelDetectionRegion.model == method)
+            .filter(DublinModelDetectionRegion.route == route)
         )
         return query.all()
 
 
-dublin_prediction_region = CRUDDublinPredictionRegion(DublinPredictionRegion)
+dublin_model_detection_region = CRUDDublinModelDetectionRegion(
+    DublinModelDetectionRegion
+)

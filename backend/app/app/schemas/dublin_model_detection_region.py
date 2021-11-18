@@ -7,36 +7,36 @@ from pydantic import BaseModel
 
 
 # Shared properties
-class DublinPredictionRegionBase(BaseModel):
+class DublinModelDetectionRegionBase(BaseModel):
     index: Optional[int]
-    filename: Optional[str]
-    rota: Optional[int]
+    model: Optional[str]
+    route: Optional[int]
     trajectory_id: Optional[int]
-    anon_predictions: Optional[str]
-    true_anon: Optional[str]
+    anom_predictions: Optional[str]
+    anom_true: Optional[str]
 
 
 # Properties to receive on item creation
-class DublinPredictionRegionCreate(DublinPredictionRegionBase):
+class DublinModelDetectionRegionCreate(DublinModelDetectionRegionBase):
     pass
 
 
 # Properties to receive on item update
-class DublinPredictionRegionUpdate(DublinPredictionRegionBase):
+class DublinModelDetectionRegionUpdate(DublinModelDetectionRegionBase):
     pass
 
 
 # Properties shared by models stored in DB
-class DublinPredictionRegionInDBBase(DublinPredictionRegionBase):
+class DublinModelDetectionRegionInDBBase(DublinModelDetectionRegionBase):
     class Config:
         orm_mode = True
 
 
 # Properties to return to client
-class DublinPredictionRegion(DublinPredictionRegionInDBBase):
+class DublinModelDetectionRegion(DublinModelDetectionRegionInDBBase):
     pass
 
 
 # Properties properties stored in DB
-class DublinPredictionRegionInDB(DublinPredictionRegionInDBBase):
+class DublinModelDetectionRegionInDB(DublinModelDetectionRegionInDBBase):
     pass

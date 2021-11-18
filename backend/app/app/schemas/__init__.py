@@ -1,4 +1,3 @@
-from .dublin_eval_models import DublinEvalModels
 from .dublin_meta import (
     DublinJourneys,
     DublinLines,
@@ -14,6 +13,13 @@ from .dublin_model import (
     DublinModelInDB,
     DublinModelUpdate,
 )
+from .dublin_model_detection_region import (
+    DublinModelDetectionRegion,
+    DublinModelDetectionRegionCreate,
+    DublinModelDetectionRegionInDB,
+    DublinModelDetectionRegionUpdate,
+)
+from .dublin_model_eval import DublinModelEval
 from .dublin_model_points import (
     DublinModelPoints,
     DublinModelPointsCreate,
@@ -25,12 +31,6 @@ from .dublin_points import (
     DublinPointsCreate,
     DublinPointsInDB,
     DublinPointsUpdate,
-)
-from .dublin_prediction_region import (
-    DublinPredictionRegion,
-    DublinPredictionRegionCreate,
-    DublinPredictionRegionInDB,
-    DublinPredictionRegionUpdate,
 )
 from .msg import Msg
 from .token import Token, TokenPayload

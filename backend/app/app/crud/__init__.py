@@ -1,9 +1,9 @@
-from .crud_dublin_eval_models import dublin_eval_models
 from .crud_dublin_meta import dublin_meta
 from .crud_dublin_model import dublin_model
+from .crud_dublin_model_detection_region import dublin_model_detection_region
+from .crud_dublin_model_eval import dublin_model_eval
 from .crud_dublin_model_points import dublin_model_points
 from .crud_dublin_points import dublin_points
-from .crud_dublin_prediction_region import dublin_prediction_region
 from .crud_item import item
 from .crud_user import user
 

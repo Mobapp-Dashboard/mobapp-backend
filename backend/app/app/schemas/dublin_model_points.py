@@ -10,7 +10,7 @@ from pydantic import BaseModel
 class DublinModelPointsBase(BaseModel):
     index: Optional[int]
     trajectory_id: Optional[int]
-    rota: Optional[int]
+    route: Optional[int]
     lat: Optional[float]
     lng: Optional[float]
 

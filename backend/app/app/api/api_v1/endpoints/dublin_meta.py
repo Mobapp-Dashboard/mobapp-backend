@@ -72,7 +72,7 @@ def read_trajs_by_journeys_date(
 def read_dublin_meta_by_line(
     *,
     db: Session = Depends(deps.get_db),
-    line_id: Optional[int] = None,
+    # line_id: Optional[int] = None,
     journey_id: Optional[str] = None,
     start_date: Optional[date] = None,
     end_date: Optional[date] = None
@@ -82,13 +82,13 @@ def read_dublin_meta_by_line(
     TODO: Ver uma forma de todas as colunas poderem ser parte da query
     sem fazer todas as queries
     """
-    if line_id and journey_id:
-        dublin_meta = crud.dublin_meta.get_by_line_journey(
-            db=db, line_id=line_id, journey_id=journey_id
-        )
-    elif line_id:
-        dublin_meta = crud.dublin_meta.get_by_line(db=db, line_id=line_id)
-    elif journey_id:
+    # if line_id and journey_id:
+    #    dublin_meta = crud.dublin_meta.get_by_line_journey(
+    #        db=db, line_id=line_id, journey_id=journey_id
+    #    )
+    # elif line_id:
+    #    dublin_meta = crud.dublin_meta.get_by_line(db=db, line_id=line_id)
+    if journey_id:
         dublin_meta = crud.dublin_meta.get_by_journey(
             db=db, journey_id=journey_id, start_date=start_date, end_date=end_date
         )

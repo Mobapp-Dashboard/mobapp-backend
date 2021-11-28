@@ -18,8 +18,8 @@ class CRUDDublinModelEval(
     ) -> List[DublinModelEval]:
         query = (
             db.query(DublinModelEval)
-            .filter(DublinModelEval.filename == method)
-            .filter(DublinModelEval.rota == rota)
+            .filter(DublinModelEval.model == method)
+            .filter(DublinModelEval.route == rota)
         )
         return query.all()
 

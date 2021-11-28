@@ -89,11 +89,11 @@ class Settings(BaseSettings):
     DATA_DIR: str = "./data"
 
     TURNOS = {
-        "madrugada": [0, 4],
-        "manha": (5, 11),
-        "tarde": (12, 17),
-        "noite": (18, 23)}
-
+        "DAWN": [0, 4],
+        "MORNING": [5, 11],
+        "AFTERNOON": [12, 17],
+        "EVENING": [18, 23],
+    }
 
     class Config:
         case_sensitive = True

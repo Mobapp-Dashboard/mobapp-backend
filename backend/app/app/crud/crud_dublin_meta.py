@@ -10,36 +10,36 @@ from app.schemas.dublin_meta import DublinMetaCreate, DublinMetaUpdate
 
 
 class CRUDDublinMeta(CRUDBase[DublinMeta, DublinMetaCreate, DublinMetaUpdate]):
-    def get_by_line_journey(
-        self,
-        db: Session,
-        *,
-        line_id: int,
-        journey_id: str,
-        skip: int = 0,
-        limit: int = 100,
-    ) -> List[DublinMeta]:
-        return (
-            db.query(self.model)
-            .filter(
-                (DublinMeta.line_id == line_id) & (DublinMeta.journey_id == journey_id)
-            )
-            .offset(skip)
-            .limit(limit)
-            .all()
-        )
-
-    def get_by_line(
-        self, db: Session, *, line_id: int, skip: int = 0, limit: int = 100
-    ) -> List[DublinMeta]:
-        return (
-            db.query(self.model)
-            .filter(DublinMeta.line_id == line_id)
-            .offset(skip)
-            .limit(limit)
-            .all()
-        )
-
+    #     def get_by_line_journey(
+    #         self,
+    #         db: Session,
+    #         *,
+    #         line_id: int,
+    #         journey_id: str,
+    #         skip: int = 0,
+    #         limit: int = 100,
+    #     ) -> List[DublinMeta]:
+    #         return (
+    #             db.query(self.model)
+    #             .filter(
+    #                 (DublinMeta.line_id == line_id) & (DublinMeta.journey_id == journey_id)
+    #             )
+    #             .offset(skip)
+    #             .limit(limit)
+    #             .all()
+    #         )
+    #
+    #     def get_by_line(
+    #         self, db: Session, *, line_id: int, skip: int = 0, limit: int = 100
+    #     ) -> List[DublinMeta]:
+    #         return (
+    #             db.query(self.model)
+    #             .filter(DublinMeta.line_id == line_id)
+    #             .offset(skip)
+    #             .limit(limit)
+    #             .all()
+    #         )
+    #
     def get_by_journey(
         self,
         db: Session,

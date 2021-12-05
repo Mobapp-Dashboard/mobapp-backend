@@ -26,6 +26,12 @@ from .dublin_model_points import (
     DublinModelPointsInDB,
     DublinModelPointsUpdate,
 )
+from .dublin_model_scores import (
+    DublinModelScores,
+    DublinModelScoresCreate,
+    DublinModelScoresInDB,
+    DublinModelScoresUpdate,
+)
 from .dublin_points import (
     DublinPoints,
     DublinPointsCreate,

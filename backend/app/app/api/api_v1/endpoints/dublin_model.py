@@ -55,6 +55,15 @@ def read_evals_by_method(
     return evals
 
 
+@router.get("/scores/{route}", response_model=List[schemas.DublinModelScores])
+def read_score_by_route(*, db: Session = Depends(deps.get_db), route: int) -> Any:
+    "Get pre-computed scores by models"
+    scores = crud.dublin_model_scores.get_score_by_route(db, route=route)
+    if not scores:
+        raise HTTPException(status_code=404, detail="Evals not found")
+    return scores
+
+
 @router.get(
     "/predictions/{method}/{route}",
     response_model=List[schemas.DublinModelDetectionRegion],

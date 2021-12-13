@@ -1,0 +1,64 @@
+[tool.poetry]
+name = "app"
+version = "0.1.0"
+description = ""
+authors = ["Admin <admin@example.com>"]
+
+[tool.poetry.dependencies]
+python = ">=3.7.1,<3.10"
+uvicorn = "^0.11.3"
+fastapi = "^0.54.1"
+python-multipart = "^0.0.5"
+email-validator = "^1.0.5"
+requests = "^2.23.0"
+celery = "^4.4.2"
+passlib = {extras = ["bcrypt"], version = "^1.7.2"}
+tenacity = "^6.1.0"
+pydantic = "^1.4"
+raven = "^6.10.0"
+gunicorn = "^20.0.4"
+jinja2 = "^2.11.2"
+psycopg2-binary = "^2.8.5"
+alembic = "^1.4.2"
+sqlalchemy = "1.3.16"
+pytest = "^5.4.1"
+python-jose = {extras = ["cryptography"], version = "^3.1.0"}
+pandas = "^1.3.2"
+tqdm = "^4.62.2"
+scipy = "^1.7.1"
+sklearn = "^0.0"
+tensorflow = "^2.6.0"
+ipython = "^7.27.0"
+geopy = "^2.2.0"
+jupyter = "^1.0.0"
+ipykernel = "^6.4.1"
+attr = "^0.3.1"
+emails = "^0.6"
+
+[tool.poetry.dev-dependencies]
+mypy = "^0.770"
+black = "^19.10b0"
+isort = "^4.3.21"
+autoflake = "^1.3.1"
+flake8 = "^3.7.9"
+pytest = "^5.4.1"
+sqlalchemy-stubs = "^0.3"
+pytest-cov = "^2.8.1"
+python-lsp-server = {extras = ["all"], version = "^1.2.4"}
+pyls-flake8 = "^0.4.0"
+mypy-ls = "^0.5.1"
+pyls-isort = "^0.2.2"
+python-lsp-black = "^1.0.0"
+pyls-memestra = "^0.0.15"
+pylsp-rope = "^0.1.6"
+matplotlib = "^3.4.3"
+
+[tool.isort]
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+line_length = 88
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
+

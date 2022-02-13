@@ -16,6 +16,10 @@ tests:
     #- docker network create traefik-public
     #- sh ./scripts/test.sh
     - echo "=O"
+  tags:
+    - build
+    - test
+
 
 
 build-prod:

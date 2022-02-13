@@ -19,7 +19,7 @@ def read_dublin_meta_by_line(
     rota: Optional[int]
 ) -> Any:
     """
-    Get dublin_meta by line_id.
+    Get GPS points
     """
     # TODO: Ver uma forma de todas as colunas poderem ser parte da query
     # sem fazer todas as queries
@@ -48,7 +48,9 @@ def read_dublin_meta_by_line(
 def read_evals_by_method(
     *, db: Session = Depends(deps.get_db), method: str, rota: int
 ) -> Any:
-    "Get pre-computed evals by models"
+    """
+    Get models evaluation
+    """
     evals = crud.dublin_model_eval.get_by_method_rota(db=db, method=method, rota=rota)
     if not evals:
         raise HTTPException(status_code=404, detail="Evals not found")
@@ -57,7 +59,7 @@ def read_evals_by_method(
 
 @router.get("/scores/{route}", response_model=List[schemas.DublinModelScores])
 def read_score_by_route(*, db: Session = Depends(deps.get_db), route: int) -> Any:
-    "Get pre-computed scores by models"
+    "Get scores"
     scores = crud.dublin_model_scores.get_score_by_route(db, route=route)
     if not scores:
         raise HTTPException(status_code=404, detail="Evals not found")
@@ -71,7 +73,7 @@ def read_score_by_route(*, db: Session = Depends(deps.get_db), route: int) -> An
 def read_evals_by_method(
     *, db: Session = Depends(deps.get_db), method: str, route: int
 ) -> Any:
-    "Get pre-computed evals by models"
+    "Get predicted anomalies points"
     preds = crud.dublin_model_detection_region.get_by_method_route(
         db=db, method=method, route=route
     )

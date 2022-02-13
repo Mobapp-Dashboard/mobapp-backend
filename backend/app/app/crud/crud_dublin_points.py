@@ -37,7 +37,7 @@ class CRUDDublinPoints(CRUDBase[DublinPoints, DublinPointsCreate, DublinPointsUp
             query = query.filter(DublinPoints.trajectory_id.in_(journey_subquery))
             kwargs.pop("journey_id")
 
-        if "turno" in kwargs.keys():
+        if "turn" in kwargs.keys():
             turno_subquery = (
                 db.query(DublinPoints.trajectory_id)
                 .distinct()
@@ -57,7 +57,7 @@ class CRUDDublinPoints(CRUDBase[DublinPoints, DublinPointsCreate, DublinPointsUp
         )
         query = query.filter(DublinPoints.trajectory_id.in_(date_subquery))
         # return query.order_by(func.random()).limit(1000).all()
-        return query.all()
+        return query.limit(100).all()
 
 
 dublin_points = CRUDDublinPoints(DublinPoints)

@@ -1,21 +1,23 @@
 from fastapi import APIRouter
 
-from app.api.api_v1.endpoints import dublin_meta, dublin_model, dublin_points, utils
-
-# , transformer, items, login, users,
+from app.api.api_v1.endpoints import (
+    anomaly_detection_models,
+    gps_points,
+    trajectory_metadata,
+)
 
 api_router = APIRouter()
-# api_router.include_router(login.router, tags=["login"])
-# api_router.include_router(users.router, prefix="/users", tags=["users"])
-# api_router.include_router(utils.router, prefix="/utils", tags=["utils"])
-# api_router.include_router(items.router, prefix="/items", tags=["items"])
+
 api_router.include_router(
-    dublin_meta.router, prefix="/dublin_meta", tags=["dublin_meta"]
+    trajectory_metadata.router,
+    prefix="/trajectory_metadata",
+    tags=["trajectory metadata"],
 )
+
+api_router.include_router(gps_points.router, prefix="/gps_points", tags=["gps points"])
+
 api_router.include_router(
-    dublin_points.router, prefix="/dublin_points", tags=["dublin_points"]
+    anomaly_detection_models.router,
+    prefix="/anomaly_detection_models",
+    tags=["anomaly detection models"],
 )
-api_router.include_router(
-    dublin_model.router, prefix="/dublin_model", tags=["dublin_model"]
-)
-# api_router.include_router(transformer.router, prefix="/transformer", tags=["Models"])

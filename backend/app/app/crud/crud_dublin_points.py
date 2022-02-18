@@ -57,7 +57,8 @@ class CRUDDublinPoints(CRUDBase[DublinPoints, DublinPointsCreate, DublinPointsUp
         )
         query = query.filter(DublinPoints.trajectory_id.in_(date_subquery))
         # return query.order_by(func.random()).limit(1000).all()
-        return query.limit(100).all()
+        # return query.limit(100).all()
+        return query.all()
 
 
 dublin_points = CRUDDublinPoints(DublinPoints)

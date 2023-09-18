@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 
 def init() -> None:
     db = SessionLocal()
-    init_db(db)
+    # init_db(db)
 
 
 def main() -> None:
